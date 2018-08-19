@@ -22,6 +22,8 @@
 //    along with Foobar.  If not, see <http://www.gnu.org/licenses/>. 
 // ----------------------------------------------------------------------------
 
+#define _GLIBCXX_USE_NANOSLEEP
+
 #include "main.h"
 #include "ctimepoint.h"
 
@@ -30,7 +32,7 @@
 
 CTimePoint::CTimePoint()
 {
-    m_TimePoint = std::chrono::steady_clock::now();
+    m_TimePoint = std::chrono::monotonic_clock::now();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -38,9 +40,9 @@ CTimePoint::CTimePoint()
 
 double CTimePoint::DurationSinceNow(void) const
 {
-    std::chrono::steady_clock::time_point Now = std::chrono::steady_clock::now();
-    std::chrono::steady_clock::duration time_span = (Now - m_TimePoint);
-    return double(time_span.count()) * std::chrono::steady_clock::period::num / std::chrono::steady_clock::period::den;
+    std::chrono::monotonic_clock::time_point Now = std::chrono::monotonic_clock::now();
+    std::chrono::monotonic_clock::duration time_span = (Now - m_TimePoint);
+    return double(time_span.count()) * std::chrono::monotonic_clock::period::num / std::chrono::monotonic_clock::period::den;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
