@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS=-c -std=c++11 -pthread
-LDFLAGS=-std=c++11 -pthread
+CFLAGS=-c -std=c++0x -pthread
+LDFLAGS=-std=c++0x -pthread
 SOURCES=$(wildcard *.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=xlxd
