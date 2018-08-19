@@ -53,7 +53,10 @@ void CSemaphore::Notify(void)
 void CSemaphore::Wait(void)
 {
     std::unique_lock<std::mutex> lock(m_Mutex);
-    m_Condition.wait(lock, [&]{ return m_Count > 0; });
+//    m_Condition.wait(lock, [&]{ return m_Count > 0; });
+    while (m_Count <= 0) {
+        m_Condition.wait(lock);
+    }
     m_Count--;
 }
 
@@ -61,7 +64,13 @@ bool CSemaphore::WaitFor(uint ms)
 {
     std::chrono::milliseconds timespan(ms);
     std::unique_lock<decltype(m_Mutex)> lock(m_Mutex);
-    auto ok = m_Condition.wait_for(lock, timespan, [&]{ return m_Count > 0; });
+//    auto ok = m_Condition.wait_for(lock, timespan, [&]{ return m_Count > 0; });
+    while (m_Count <= 0) {
+        if (m_Condition.wait_for(lock, timespan) == 1) {
+            break;
+        }
+    }
+    auto ok = (m_Count > 0);
     if ( ok )
     {
         m_Count--;
