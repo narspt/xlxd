@@ -29,7 +29,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 // class
 
-class CTimePoint : public std::chrono::steady_clock::time_point
+class CTimePoint : public std::chrono::monotonic_clock::time_point
 {
 public:
     // constructor
@@ -39,7 +39,7 @@ public:
     virtual ~CTimePoint() {}
     
     // operation
-    void   Now(void)                  { m_TimePoint = std::chrono::steady_clock::now(); }
+    void   Now(void)                  { m_TimePoint = std::chrono::monotonic_clock::now(); }
     double DurationSinceNow(void) const;
     
     // task
@@ -47,7 +47,7 @@ public:
     
 protected:
     // data
-    std::chrono::steady_clock::time_point m_TimePoint;
+    std::chrono::monotonic_clock::time_point m_TimePoint;
 };
 
 
