@@ -32,7 +32,7 @@
 #include <chrono>
 #include <thread>
 #include <mutex>
-#include <atomic>
+#include <cstdatomic>
 #include <condition_variable>
 #include <ctime>
 #include <cctype>
