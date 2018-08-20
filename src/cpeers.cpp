@@ -115,10 +115,10 @@ void CPeers::RemovePeer(CPeer *peer)
                 // remove all clients from reflector client list
                 // it is double lock safe to lock Clients list after Peers list
                 CClients *clients = g_Reflector.GetClients();
-                for ( int i = 0; i < peer->GetNbClients(); i++ )
+                for ( int j = 0; j < peer->GetNbClients(); j++ )
                 {
                     // this also delete the client object
-                    clients->RemoveClient(peer->GetClient(i));
+                    clients->RemoveClient(peer->GetClient(j));
                 }
                 // so clear it then
                 m_Peers[i]->ClearClients();
